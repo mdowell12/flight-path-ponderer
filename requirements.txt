@@ -1,0 +1,6 @@
+certifi==2026.1.4
+charset-normalizer==3.4.4
+idna==3.11
+opensky-api @ https://github.com/openskynetwork/opensky-api/archive/master.zip#sha256=d5dd5acd4d71c42a9cac2e11eb2849ac5240e203ee2f5ddab5facfc6629a3c40&subdirectory=python
+requests==2.32.5
+urllib3==2.6.3
