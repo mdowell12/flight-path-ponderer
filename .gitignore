@@ -1,0 +1,12 @@
+.vscode
+__pycache__
+.DS_Store
+.pyc
+infra/arduino/arduino_secrets.h
+
+# Terraform
+.terraform*
+terraform.tfstate
+terraform.tfstate.backup
+*.zip
+infra/tf/layer

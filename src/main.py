@@ -1,7 +1,8 @@
+import json
 from pprint import pprint
 import time
 
-# from opensky_api import OpenSkyApi
+from opensky_api import OpenSkyApi
 import requests
 
 BASE_URL = "https://api.adsb.lol"
@@ -61,6 +62,8 @@ def get_nearest_aircraft(lat, lon) -> dict:
             # TODO Handle multi-leg flights, e.g. KSEA-KPHX-KSEA for flight DAL2449
             closest_plane["departure_airport"] = airports[-2]
             closest_plane["arrival_airport"] = airports[-1]
+
+    import pdb; pdb.set_trace()
     
     return closest_plane
 
@@ -106,16 +109,33 @@ def _get_bbox_for_point(lat, lon, margin) -> tuple:
     return (lat - margin, lat + margin, lon - margin, lon + margin)
 
 
+def lambda_handler(event, context):
+    # This is where you will call OpenSky or FlightAware APIs later.
+    # For now, we return a simple string for the ESP32 to display.
+    
+    mock_flight_data = {
+        "flight": "BA249",
+        "status": "ON TIME",
+        "gate": "B22",
+        "dest": "ORD -> SEA"
+    }
+    
+    return {
+        "statusCode": 200,
+        "body": json.dumps(mock_flight_data)
+    }
+
+
 if __name__ == "__main__":
     while True:
         result = get_nearest_aircraft(47.61718184635572, -122.31581513150061)  # Coordinates for Seattle, USA
-        import pdb; pdb.set_trace()
+        # import pdb; pdb.set_trace()
         message = f"""
 =================
 Nearest Aircraft:
-    Flight {result["flight"].strip()} is headed from {result["departure_airport"]["location"]} to {result["arrival_airport"]["location"]}
-    Altitude: {result["alt_baro"]} ft. descending at a rate of {result["baro_rate"]} ft
+    Flight {result.get("flight", "").strip()} is headed from {result.get("departure_airport", {}).get("location")} to {result.get("arrival_airport", {}).get("location")}
+    Altitude: {result.get("alt_baro")} ft. descending at a rate of {result.get("baro_rate")} ft/min
 
 """
         print(message)
-        time.sleep(10)
+        time.sleep(30)
