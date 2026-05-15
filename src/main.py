@@ -110,16 +110,18 @@ def _get_bbox_for_point(lat, lon, margin) -> tuple:
 
 
 def lambda_handler(event, context):
-    # This is where you will call OpenSky or FlightAware APIs later.
-    # For now, we return a simple string for the ESP32 to display.
-    
     mock_flight_data = {
-        "flight": "BA249",
-        "status": "ON TIME",
-        "gate": "B22",
-        "dest": "ORD -> SEA"
+        "flight": "DAL2449",
+        "origin": "KSEA",
+        "origin_city": "Seattle",
+        "destination": "KPHX",
+        "destination_city": "Phoenix",
+        "aircraft_type": "B739",
+        "altitude_ft": 35000,
+        "speed_kts": 450,
+        "eta_minutes": 87,
     }
-    
+
     return {
         "statusCode": 200,
         "body": json.dumps(mock_flight_data)

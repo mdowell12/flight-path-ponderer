@@ -3,6 +3,7 @@ __pycache__
 .DS_Store
 .pyc
 infra/arduino/arduino_secrets.h
+infra/arduino/.theia/launch.json
 
 # Terraform
 .terraform*
@@ -10,3 +11,4 @@ terraform.tfstate
 terraform.tfstate.backup
 *.zip
 infra/tf/layer
+
